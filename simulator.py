@@ -26,6 +26,19 @@ def execute_add(rd, rs1, rs2):
     reg[rd] = result
     print(f"adding {val_rs1}, {val_rs2} and storing the result {result} in {rd}")
 
+def execute_sub(rd, rs1, rs2):
+    """
+    subtracts the value in rs2 from rs1 and stores the result in rd
+    """
+    if rd == "x0":
+        return
+    
+    val_rs1 = reg[rs1]
+    val_rs2 = reg[rs2]
+    result = val_rs1 - val_rs2
+    reg[rd] = result
+    print(f"subtracting {val_rs2} from {val_rs1} and storing the result {result} in {rd}")
+
 def execute_lw(rd, rs1):
     """
     loads a value from memory address rs1 to register rd
@@ -93,8 +106,10 @@ def fetch_decode_execute():
         if opcode == 1:
             execute_add(f"x{rd}", f"x{rs1}", f"x{rs2}")
         elif opcode == 2:
-            execute_lw(f"x{rd}", f"x{rs1}")
+            execute_sub(f"x{rd}", f"x{rs1}", f"x{rs2}")
         elif opcode == 3:
+            execute_lw(f"x{rd}", f"x{rs1}")
+        elif opcode == 4:
             execute_beq(f"x{rs1}", f"x{rs2}", offset)
         pc += 1
         instruction_count += 1
