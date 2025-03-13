@@ -27,8 +27,15 @@ offset: 3
 
 ## Test Instructions:
 ```python
+# Test them separately
+
 # add
-memory[2] = 11230 # add x1, x2, x3
+memory[0] = 11230 # add x1, x2, x3
+reg["x2"] = 5
+reg["x3"] = 10
+
+# sub
+memory[0] = 21230 # sub x1, x2, x3
 reg["x2"] = 5
 reg["x3"] = 10
 
@@ -39,9 +46,9 @@ memory[1] = 34500 # lw x4, (x5)
 
 
 # beq
-# reg["x1"] = 10
-# reg["x2"] = 10
-# memory[0] = 40122 # beq x1, x2, 2 (if x1==x2, branch to pc+2)
+reg["x1"] = 10
+reg["x2"] = 10
+memory[0] = 40122 # beq x1, x2, 2 (if x1==x2, branch to pc+2)
 
 fetch_decode_execute()
 print("Registers after execution:", reg)
